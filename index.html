@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> Free Earning </title>
+
+  <!-- CSS -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0a0a0a;
+      color: white;
+      text-align: center;
+      padding-top: 40px;
+    }
+    .card {
+      background: #151515;
+      width: 320px;
+      margin: auto;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #1e90ff;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #1e90ff;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #187bcd;
+    }
+    .small {
+      font-size: 14px;
+      color: #aaa;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h2>🚀 Base Mini App</h2>
+
+    <p id="wallet">Wallet: Not connected</p>
+    <h3 id="points">Points: 0</h3>
+
+    <button onclick="connectWallet()">Connect Wallet</button>
+    <button onclick="claimReward()">Claim Daily Reward</button>
+
+    <p class="small">Keep Earning(test version)</p>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    let userWallet = null;
+    let points = 0;
+
+    async function connectWallet() {
+      if (!window.ethereum) {
+        alert("Wallet not found! Use Coinbase Wallet or MetaMask");
+        return;
+      }
+
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts"
+      });
+
+      userWallet = accounts[0];
+      document.getElementById("wallet").innerText =
+        "Wallet: " + userWallet.slice(0, 6) + "..." + userWallet.slice(-4);
+    }
+
+    function claimReward() {
+      if (!userWallet) {
+        alert("Please connect wallet first!");
+        return;
+      }
+      points += 10;
+      document.getElementById("points").innerText =
+        "Points: " + points;
+      alert("✅ You earned 10 points!");
+    }
+  </script>
+
+</body>
+</html>
